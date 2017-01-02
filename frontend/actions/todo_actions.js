@@ -8,5 +8,5 @@ export const receiveTodos = (todos) => ({
 
 export const receiveTodo = (todo) => ({
   type: RECEIVE_TODO,
-  todo
+  todo: todo
 });

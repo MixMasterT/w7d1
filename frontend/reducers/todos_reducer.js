@@ -1,5 +1,5 @@
-import { RECEIVE_TODOS } from '../actions/todos_action';
-import { RECEIVE_TODO } from '../actions/todos_action';
+import { RECEIVE_TODOS, receiveTodos } from '../actions/todo_actions';
+import { RECEIVE_TODO, receiveTodo } from '../actions/todo_actions';
 import { merge } from 'lodash';
 
 // reducers/todos_reducer.js
@@ -19,10 +19,18 @@ const initialState = {
 };
 
 const todosReducer = (state = initialState, action) => {
-  // debugger;
   switch(action.type) {
-    // case RECEIVE_TODOS:
-    //   return []
+    case RECEIVE_TODOS:
+      const newState = {};
+      Object.keys(action.todos).forEach((key) => {
+        newState[key] = action.todos[key];
+      });
+      return newState;
+    case RECEIVE_TODO:
+      const addedState = {};
+      const key = parseInt(Object.keys(action.todo)[0]);
+      addedState[key] = action.todo[key];
+      return merge(state, addedState);
     default:
       return state;
   }

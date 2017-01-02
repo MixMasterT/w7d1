@@ -60,6 +60,8 @@
 	
 	var _selectors = __webpack_require__(202);
 	
+	var _todo_actions = __webpack_require__(204);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -99,6 +101,8 @@
 	
 	  var selector = _selectors.allTodos;
 	  window.selector = selector;
+	
+	  window.receiveTodo = _todo_actions.receiveTodo;
 	});
 
 /***/ },
@@ -22603,7 +22607,9 @@
 	  value: true
 	});
 	
-	var _todos_action = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/todos_action\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _todo_actions = __webpack_require__(204);
 	
 	var _lodash = __webpack_require__(203);
 	
@@ -22627,13 +22633,31 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 	
-	  // debugger;
-	  switch (action.type) {
-	    // case RECEIVE_TODOS:
-	    //   return []
-	    default:
-	      return state;
-	  }
+	  var _ret = function () {
+	    switch (action.type) {
+	      case _todo_actions.RECEIVE_TODOS:
+	        var newState = {};
+	        Object.keys(action.todos).forEach(function (key) {
+	          newState[key] = action.todos[key];
+	        });
+	        return {
+	          v: newState
+	        };
+	      case _todo_actions.RECEIVE_TODO:
+	        var addedState = {};
+	        var key = parseInt(Object.keys(action.todo)[0]);
+	        addedState[key] = action.todo[key];
+	        return {
+	          v: (0, _lodash.merge)(state, addedState)
+	        };
+	      default:
+	        return {
+	          v: state
+	        };
+	    }
+	  }();
+	
+	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	};
 	
 	exports.default = todosReducer;
@@ -39745,6 +39769,32 @@
 	}.call(this));
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(193)(module)))
+
+/***/ },
+/* 204 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var RECEIVE_TODOS = exports.RECEIVE_TODOS = "RECEIVE_TODOS";
+	var RECEIVE_TODO = exports.RECEIVE_TODO = "RECEIVE_TODO";
+	
+	var receiveTodos = exports.receiveTodos = function receiveTodos(todos) {
+	  return {
+	    type: RECEIVE_TODOS,
+	    todos: todos
+	  };
+	};
+	
+	var receiveTodo = exports.receiveTodo = function receiveTodo(todo) {
+	  return {
+	    type: RECEIVE_TODO,
+	    todo: todo
+	  };
+	};
 
 /***/ }
 /******/ ]);
