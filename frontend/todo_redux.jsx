@@ -3,16 +3,9 @@ import ReactDOM from 'react-dom';
 import { configureStore } from './store/store';
 import { allTodos } from './reducers/selectors';
 import { receiveTodo } from './actions/todo_actions';
-
-class ToDo extends React.Component {
-  render() {
-    return (<h1>ToDo App!</h1>);
-  }
-}
-
+import Root from './components/root';
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<ToDo />, document.getElementById('root'));
 
   const store = configureStore();
   window.store = store;
@@ -21,4 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.selector = selector;
 
   window.receiveTodo = receiveTodo;
+
+  ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
 });
