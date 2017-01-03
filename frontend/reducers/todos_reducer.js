@@ -28,8 +28,8 @@ const todosReducer = (state = initialState, action) => {
       return newState;
     case RECEIVE_TODO:
       const addedState = {};
-      const key = parseInt(Object.keys(action.todo)[0]);
-      addedState[key] = action.todo[key];
+      const key = parseInt(Object.values(action.todo)[0]);
+      addedState[key] = action.todo;
       return merge(state, addedState);
     default:
       return state;

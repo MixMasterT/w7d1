@@ -22,11 +22,16 @@ class TodoForm extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(this.state);
+    const time = new Date().getTime()
     this.props.receiveTodo({
-      id: new Date().getTime(),
+      id: time,
       title: this.state.title,
       body: this.state.body
+    })
+    // console.log(this.state);
+    this.setState({
+      title: "",
+      body: ""
     })
   }
 
